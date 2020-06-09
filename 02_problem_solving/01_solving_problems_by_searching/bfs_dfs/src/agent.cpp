@@ -87,6 +87,18 @@ void Agent::print_map()
 
 }
 
+
+/*
+* Time complexity: O(b^d)
+* Space complexity: O(b^d)
+* Complete: Yes
+* Optimal: Yes
+* where: 
+* 	d = depth of the solution
+* 	b = branching factor
+* 	Complete = Will it find a solution if there is one ? 
+* 	Optimal = Will it find the highest-quality solution if there are multiple solutions ?
+*/
 int Agent::bfs()
 {
     //queue stores a pair in the form (row, col)
@@ -175,6 +187,19 @@ int Agent::bfs()
     return -1;    
 }
 
+
+
+/*
+* Time complexity: O(b^m)
+* Space complexity: O(bm)
+* Complete: No
+* Optimal: No
+* where: 
+* 	m = maximum depth of the search tree
+* 	b = branching factor
+* 	Complete = Will it find a solution if there is one ? 
+* 	Optimal = Will it find the highest-quality solution if there are multiple solutions ?
+*/
 int Agent::dfs()
 {
     //stack stores a pair in the form (row, col)
