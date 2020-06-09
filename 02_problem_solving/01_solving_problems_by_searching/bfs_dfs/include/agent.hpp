@@ -37,6 +37,7 @@ class Agent
         void print_map();
         int bfs();
         int dfs();
+	bool can_add(int col, int row);
 
         void print_final_results(string);
         void print_found_goal_positions();

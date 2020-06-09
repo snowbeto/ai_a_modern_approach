@@ -140,30 +140,26 @@ int Agent::bfs()
             map[current_node.first][current_node.second] = "-";
             
             //add node childrens
-            
             //add  top child
-            if(map[current_node.first - 1][current_node.second] == " " || map[current_node.first - 1][current_node.second] == "*")
-            {
-                nodes_queue.push(make_pair(current_node.first -1, current_node.second));
+            if(can_add(current_node.first - 1, current_node.second)){
+                nodes_queue.push(make_pair(current_node.first - 1, current_node.second));
                 total_of_stored_nodes++;
             }
 
             //add bottom child
-            if(map[current_node.first + 1][current_node.second] == " " || map[current_node.first  + 1][current_node.second] == "*")
-            {
+            if(can_add(current_node.first + 1, current_node.second)){
                 nodes_queue.push(make_pair(current_node.first + 1, current_node.second));
                 total_of_stored_nodes++;
             }
 
             //add left child
-            if(map[current_node.first][current_node.second - 1] == " " || map[current_node.first][current_node.second - 1] == "*")
-            {
+            if(can_add(current_node.first, current_node.second - 1)){
                 nodes_queue.push(make_pair(current_node.first, current_node.second - 1));
                 total_of_stored_nodes++;
             }
             
             //add right child
-            if(map[current_node.first][current_node.second + 1] == " " || map[current_node.first][current_node.second + 1] == "*")
+            if(can_add(current_node.first, current_node.second + 1))
             {
                 nodes_queue.push(make_pair(current_node.first, current_node.second + 1));
                 total_of_stored_nodes++;
@@ -175,7 +171,6 @@ int Agent::bfs()
 
     }
  
-    cout << "All the possible nodes have been explored " << endl; 
     print_final_results("queue");
     return -1;    
 }
@@ -233,31 +228,26 @@ int Agent::dfs()
             map[current_node.first][current_node.second] = "-";
             
             //add node childrens
-            
             //add  top child
-            if(map[current_node.first - 1][current_node.second] == " " || map[current_node.first - 1][current_node.second] == "*")
-            {
-                nodes_stack.push(make_pair(current_node.first -1, current_node.second));
+            if(can_add(current_node.first - 1, current_node.second)){
+                nodes_stack.push(make_pair(current_node.first - 1, current_node.second));
                 total_of_stored_nodes++;
             }
 
             //add bottom child
-            if(map[current_node.first + 1][current_node.second] == " " || map[current_node.first  + 1][current_node.second] == "*")
-            {
+            if(can_add(current_node.first + 1, current_node.second)){
                 nodes_stack.push(make_pair(current_node.first + 1, current_node.second));
                 total_of_stored_nodes++;
             }
 
             //add left child
-            if(map[current_node.first][current_node.second - 1] == " " || map[current_node.first][current_node.second - 1] == "*")
-            {
+            if(can_add(current_node.first, current_node.second - 1)){
                 nodes_stack.push(make_pair(current_node.first, current_node.second - 1));
                 total_of_stored_nodes++;
             }
             
             //add right child
-            if(map[current_node.first][current_node.second + 1] == " " || map[current_node.first][current_node.second + 1] == "*")
-            {
+            if(can_add(current_node.first, current_node.second + 1)){
                 nodes_stack.push(make_pair(current_node.first, current_node.second + 1));
                 total_of_stored_nodes++;
             }
@@ -267,27 +257,36 @@ int Agent::dfs()
 
     }
 
-    cout << "All the possible nodes have been explored " << endl; 
     print_final_results("stack");
     return -1;    
 }
 
+bool Agent::can_add(int col, int row){
+     if(map[col][row] == " " || map[col][row] == "*"){
+	return true;
+     }
+
+     return false; 
+
+}
+
 void Agent::print_final_results(string data_structure_name)
 {   
+    cout << "The map has been explored... " << endl; 
     print_map();
-    cout << "Found " << goal_positions.size() << " of " << number_of_goals << endl;
-    cout << "Maximum size of the " << data_structure_name << " : " << max_number_of_stored_nodes << endl;
-    cout << "Total of stored nodes: " << total_of_stored_nodes << endl;
-    cout << "Total of visited nodes: " << number_of_visited_nodes << endl;
+    cout << "Found " << goal_positions.size() << " of " << number_of_goals << " dirts" << endl;
     print_found_goal_positions();
+    cout << "Maximum size of the " << data_structure_name << " : " << max_number_of_stored_nodes << endl;
+    cout << "Total stored nodes: " << total_of_stored_nodes << endl;
+    cout << "Total visited nodes: " << number_of_visited_nodes << endl;
 } 
 
 void Agent::print_found_goal_positions()
 {
-    cout << "Goals positon: " << endl;
+    cout << "Dirts found at: " << endl;
     for(int i = 0; i < goal_positions.size(); i++)
     {
-        cout << i + 1 << ": (" << goal_positions[i].first << ", " << goal_positions[i].second << ")" << endl;
+        cout << "    " <<  i + 1 << ": (" << goal_positions[i].first << ", " << goal_positions[i].second << ")" << endl;
     }
 }
 

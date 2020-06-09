@@ -67,7 +67,6 @@ void Environment::run()
 	
 	}while (op == 1);
     
-    cout << "Hasta la vista baby :D" << endl;
 }
 
 //create the map based on the selected file
